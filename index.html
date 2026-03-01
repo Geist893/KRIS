@@ -96,43 +96,46 @@ h1{
 
 <script>
 
-const messages = [
-"TE AMO KRIS❤️",
-"Eres lo mejor que me ha pasado 💕",
-"Cada día te amo más 💗",
-"Mi persona favorita 💓",
-"Eres quien hace sonreír mi corazón💖"
-];
+function abrirSorpresa() {
+    document.body.style.background = "#fff";
 
-let index = 0;
+    const mensajes = [
+        "TE AMO KRIS❤️",
+        "Eres lo mejor que me ha pasado 💕",
+        "Cada día te amo más 💗",
+        "Mi persona favorita 💓",
+        "Eres quien hace sonreír mi corazón 💖"
+    ];
 
-function startSurprise(){
-    document.getElementById("startScreen").style.display="none";
-    document.getElementById("content").style.display="block";
-    document.getElementById("music").play();
-    showMessages();
-    setInterval(createHeart,300);
+    const contenedor = document.createElement("div");
+    contenedor.style.textAlign = "center";
+    contenedor.style.marginTop = "50px";
+    contenedor.style.fontSize = "24px";
+    contenedor.style.fontWeight = "bold";
+    contenedor.style.color = "#ff1493";
+
+    document.body.appendChild(contenedor);
+
+    let i = 0;
+    function mostrarMensaje() {
+        if (i < mensajes.length) {
+            const p = document.createElement("p");
+            p.innerText = mensajes[i];
+            p.style.animation = "fade 2s";
+            contenedor.appendChild(p);
+            i++;
+            setTimeout(mostrarMensaje, 2000);
+        }
+    }
+
+    mostrarMensaje();
+
+    // reproducir música
+    const audio = document.getElementById("miMusica");
+    if(audio){
+        audio.play();
+    }
 }
-
-function showMessages(){
-    const messageDiv = document.getElementById("message");
-    messageDiv.innerHTML = messages[index];
-    index = (index + 1) % messages.length;
-    setTimeout(showMessages,3000);
-}
-
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(Math.random()*20+15)+"px";
-    heart.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{heart.remove();},6000);
-}
-
 </script>
 
 </body>
